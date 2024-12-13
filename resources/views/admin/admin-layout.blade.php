@@ -22,6 +22,8 @@
             </div>
         </div>
 
+        @include('partials.status')
+
 <div class="p-4">
 @yield('content')
 </div>

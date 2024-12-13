@@ -12,8 +12,6 @@ class WeatherController extends Controller
     public function search(Request $request)
     {
 
-
-
         if (!$weather = Weather::where('city', $request->city)->first()) {
             $error = $request->city . " ne postoji u bazu";
             return redirect()->back()->with($error);
@@ -26,20 +24,19 @@ class WeatherController extends Controller
     {
 
         $request->validate([
-            'city' => 'required|string|max:255',
+            'city' => 'required|string|max:255|unique:weather,city',
             'temperature' => 'required|numeric|min:0|max:50',
         ]);
 
         try {
-
             Weather::create([
                 'city' => $request->city,
                 'temperature' => $request->temperature
             ]);
-
-            return redirect()->back()->with('success', 'Grad je uspjesno dodan');
+            return redirect()->route('index')->with('success', 'Grad je uspjesno dodan');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
+            $error = $e->getMessage();
+            return redirect()->back()->with($error);
         }
 
     }
@@ -48,5 +45,7 @@ class WeatherController extends Controller
         $city->delete();
         return redirect()->back()->with('success', 'Grad je uspjesno obrisan');
     }
+
+
 
 }
