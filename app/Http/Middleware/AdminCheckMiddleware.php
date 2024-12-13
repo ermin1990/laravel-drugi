@@ -16,7 +16,7 @@ class AdminCheckMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::user()->role == "admin") {
+        if (Auth::user()->role != "admin") {
             return redirect()->route("home");
         }
         return $next($request);

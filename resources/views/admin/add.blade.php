@@ -2,6 +2,7 @@
 
 @section('content')
 
+
     <div class="bg-white rounded-lg shadow-xl p-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-4">Dodaj Novi Grad</h2>
         <form action="{{ route('add-city') }}" method="POST" class="mb-3">

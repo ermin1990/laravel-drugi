@@ -14,10 +14,12 @@
                                 Prijava
                             </a>
                         @else
+                            @if(\Illuminate\Support\Facades\Auth::user()->role == "admin")
                             <a href="{{ route('index') }}"
                                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200">
                                 Administracija
                             </a>
+                            @endif
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"

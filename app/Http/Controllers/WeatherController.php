@@ -41,11 +41,37 @@ class WeatherController extends Controller
 
     }
 
-    public function deleteCity(Weather $city){
+    public function deleteCity(Weather $city)
+    {
         $city->delete();
         return redirect()->back()->with('success', 'Grad je uspjesno obrisan');
     }
 
+    public function editCity(Weather $city)
+    {
+        return view('admin.edit', compact('city'));
+    }
+
+    public function updateCity(Request $request, Weather $city)
+    {
+
+        $request->validate([
+            'city' => 'required|string|max:255',
+            'temperature' => 'required|numeric|min:0|max:50',
+        ]);
+
+        try {
+            $city->update([
+                "city" => $request->city,
+                "temperature" => $request->temperature,
+            ]);
+            return redirect()->route('index')->with('success', 'Grad je uspjesno azuriran');
+        } catch (\Exception $e) {
+            $error = $e->getMessage();
+            return redirect()->back()->with($error);
+        }
+
+    }
 
 
 }
