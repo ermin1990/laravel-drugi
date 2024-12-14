@@ -3,33 +3,67 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Faker\Factory as Faker;
 
 class UserSeeder extends Seeder
 {
 
     public function run(): void
     {
+
+        $this->command->getOutput()->info('[0] Automatsko generiši podatke ili [1] Upis podataka');
+        $izbor = $this->command->ask("Želite li vi upisati podatke ili da se sami generišu");
+
         $amout = $this->command->ask('Koliko korisnika želite dodati', 10);
 
-        $password = $this->command->ask('Unesite lozinku', '12345678');
+        if ($izbor === '0') {
+            $this->command->getOutput()->info('Automatsko generiši podatke');
 
-        $faker = Faker::create("HR_HR");
+            $faker = Faker::create("HR_HR");
 
-        $this->command->getOutput()->progressStart($amout);
+            for ($i = 0; $i < $amout; $i++) {
+                $name = $faker->name;
+                $email = $faker->email;
+                $password = $faker->password;
 
-        for($i = 0; $i < $amout; $i++) {
-            User::create([
-                'name'=> $faker->name,
-                "email" => $faker->email,
-                "password" => Hash::make($password),
-            ]);
+                if (User::all()->where('email', $email)->count() > 0) {
+                    $this->command->getOutput()->info('Korisnik ' . $email . ' se vec nalazi u bazi podataka');
+                    continue;
+                }
 
-            $this->command->getOutput()->progressAdvance();
+                User::create([
+                    'name' => $name,
+                    "email" => $email,
+                    "password" => Hash::make($password),
+                ]);
+
+                $this->command->getOutput()->info('Korisnik je uspjesno dodan');
+            }
+
+        } elseif ($izbor === '1') {
+            $this->command->getOutput()->info('Upis podataka');
+
+            for ($i = 0; $i < $amout; $i++) {
+                $name = $this->command->ask('Unesite ime');
+                $email = $this->command->ask('Unesite email');
+                $password = $this->command->ask('Unesite lozinku');
+
+                if (User::all()->where('email', $email)->count() > 0) {
+                    $this->command->getOutput()->info('Korisnik ' . $email . ' se vec nalazi u bazi podataka');
+                    continue;
+                }
+
+                User::create([
+                    'name' => $name,
+                    "email" => $email,
+                    "password" => Hash::make($password),
+                ]);
+
+                $this->command->getOutput()->info('Korisnik je uspjesno dodan');
+            }
         }
 
-        $this->command->getOutput()->progressFinish();
     }
 }
