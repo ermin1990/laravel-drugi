@@ -10,7 +10,7 @@
                 <div class="space-y-4">
                     <div>
                         <label for="city_id" class="block text-sm font-medium text-gray-700">Ime Grada</label>
-                        <input type="text" name="city_id" id="city_id" value="{{old('city_id', $city_id->city_id)}}" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <input type="text" name="city_id" id="city_id" value="{{old('city_id', $city_id->city->name)}}" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     </div>
                     <div>
                         <label for="temperature" class="block text-sm font-medium text-gray-700">Temperatura (°C)</label>

@@ -26,7 +26,7 @@
 
                     @foreach($allCities as $city)
                         <tr>
-                            <td class="px-6 text-center py-4 whitespace-nowrap">{{$city->city_id}}</td>
+                            <td class="px-6 text-center py-4 whitespace-nowrap">{{$city->city->name}}</td>
                             <td class="px-6 text-center py-4 whitespace-nowrap">{{$city->temperature}}°C</td>
                             <td class="px-6 text-center py-4 whitespace-nowrap">
                                 <div class="flex space-x-2 justify-end">
