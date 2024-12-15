@@ -25,9 +25,9 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->prefix("admin")->group
     Route::get('/', [AdminController::class, 'index'])->name("index");
     Route::view('add', 'admin.add')->name("add");
     Route::post('add-city', [WeatherController::class, 'addCity'])->name("add-city");
-    Route::get('delete/{city}', [WeatherController::class, 'deleteCity'])->name("delete");
-    Route::get('edit/{city}', [WeatherController::class, 'editCity'])->name("edit");
-    Route::post('update/{city}', [WeatherController::class, 'updateCity'])->name("update");
+    Route::get('delete/{city_id}', [WeatherController::class, 'deleteCity'])->name("delete");
+    Route::get('edit/{city_id}', [WeatherController::class, 'editCity'])->name("edit");
+    Route::post('update/{city_id}', [WeatherController::class, 'updateCity'])->name("update");
 })->name("admin");
 
 require __DIR__.'/auth.php';
