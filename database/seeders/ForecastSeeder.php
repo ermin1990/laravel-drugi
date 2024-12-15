@@ -18,12 +18,22 @@ class ForecastSeeder extends Seeder
         $faker = Factory::create();
         $cities = City::all();
 
+        $weather_types = ['sunny', 'rainy', 'snowy'];
+
         foreach ($cities as $city){
             for ($i = 0; $i < 5; $i++) {
+                $weather_type = $faker->randomElement($weather_types);
+                if ($weather_type != 'sunny') {
+                    $probability = rand(0, 100);
+                }else{
+                    $probability = null;
+                }
                 Forecast::create([
                     'city_id' => $city->id,
                     'temperature' => $faker->numberBetween(15, 30),
                     'date' => Carbon::now()->addDays(rand(1,30)),
+                    'weather_type'=> $weather_type,
+                    'probability' => $probability
                 ]);
             }
         }
