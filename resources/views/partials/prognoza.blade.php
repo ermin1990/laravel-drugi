@@ -17,7 +17,7 @@
         @if(isset($weather))
 
             <div class="text-center">
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ $weather->city_id }}</h2>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ $weather->city->name }}</h2>
                 <div class="bg-gray-100 rounded-lg p-6">
                     <div class="text-5xl font-bold text-blue-500 mb-2">
                         {{ round($weather->temperature) }}°C
