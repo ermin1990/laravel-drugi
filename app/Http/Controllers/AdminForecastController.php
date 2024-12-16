@@ -21,7 +21,7 @@ class AdminForecastController extends Controller
     {
 
         $request->validate([
-            'city_id' => 'required',
+            'city_id' => 'required|exists:cities,id',
             'temperature' => 'required|integer|min:-70|max:70',
             'weather_type' => 'required',
             'probability' => 'integer|min:0|max:100|nullable',

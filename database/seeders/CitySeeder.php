@@ -14,9 +14,9 @@ class CitySeeder extends Seeder
     public function run(): void
     {
 
-        $faker = Factory::create();
+        $faker = Factory::create("HR_HR");
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 25; $i++) {
             City::create([
                 'name' => $faker->city
             ]);

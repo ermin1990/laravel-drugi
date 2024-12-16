@@ -10,6 +10,7 @@
             <div class="addForm">
                 @include('partials.status')
                 @include('admin.partials.forecast_add')
+                <i class="bi bi-sun"></i>
             </div>
 
             <div class="list">
@@ -17,6 +18,7 @@
 
                     <div class="wraper m-2 mb-4">
                         @include('admin.partials.forecast_cities', ['city' => $city])
+
                     </div>
                 @endforeach
             </div>
