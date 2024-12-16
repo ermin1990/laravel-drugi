@@ -4,7 +4,6 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminForecastController;
 use App\Http\Controllers\ForecastController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\IconController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WeatherController;
 use App\Http\Middleware\AdminCheckMiddleware;

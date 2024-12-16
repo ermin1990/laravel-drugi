@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Weather;
 use Exception;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\PseudoTypes\LowercaseString;
 
 
 class WeatherController extends Controller
@@ -12,13 +14,24 @@ class WeatherController extends Controller
 
     public function search(Request $request)
     {
+        $search = $request->city;
+        $name = strtolower($request->city);
+        $svigradovi = City::all();
+        $city = City::selectRaw("lower(name) as name, id")
+            ->whereRaw("lower(name) = ?", [$name])
+            ->first();
 
-        if (!$weather = Weather::where('city', $request->city_id)->first()) {
-            $error = $request->city_id . " ne postoji u bazu";
-            return redirect()->back()->with($error);
+        if (!$city) {
+
+                return view('home', compact('search'));
+
+
+        } else {
+            $weather = Weather::where('city_id', $city->id)->first();
         }
 
-        return view('home', compact('weather'));
+        return view('home', compact('weather', 'svigradovi'));
+
     }
 
     public function addCity(Request $request)
@@ -72,6 +85,12 @@ class WeatherController extends Controller
             return redirect()->back()->with($error);
         }
 
+    }
+
+    private function strlower(mixed $city)
+    {
+
+        return strtolower($city);
     }
 
 

@@ -5,9 +5,12 @@
             <div class="flex flex-col space-y-4">
                 <label for="city" class="text-lg font-semibold text-gray-700">Unesite ime grada</label>
                 <div class="flex space-x-2">
-                    <input type="text" name="city" id="city" placeholder="npr. Sarajevo" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <input type="text" name="city" id="city" placeholder="npr. Sarajevo"
+                           class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                           required>
 
-                    <button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200">
+                    <button type="submit"
+                            class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200">
                         Pretraži
                     </button>
                 </div>
@@ -25,13 +28,26 @@
                     <p class="text-gray-600">Trenutna temperatura</p>
                 </div>
             </div>
-            <p class=" text-xs text-yellow-600 text-center">Ukoliko grad koji se tražili ne postoji, prikazat ćemo vam random grad.</p>
-        @endif
 
-        @if(isset($error))
-            <div class="mt-2 p-4 bg-red-100 text-red-700 rounded-lg">
-                {{ $error }}
+
+
+            <p class=" text-xs text-gray-600">
+                Ispisujemo random vremensku prognozu za Random grad ukoliko niste pretražili neki iz baze.
+            </p>
+        @else
+            <div class="text-center">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Nema vremenske prognoze za {{$search}}</h2>
             </div>
         @endif
+
+        <div class="sviGradovi">
+            <h3 class="text-xl font-bold text-gray-800 my-2"> Svi gradovi <span class="text-xs text-gray-600">(Klikni na odabir grada)</span></h3>
+            <div class="text-xs font-bold flex flex-wrap gap-2">
+                @foreach($svigradovi as $svigrad)
+                    <a href="{{ route('search', ['city' => $svigrad->name]) }}" class="p-2 bg-gray-100 rounded-lg">{{ $svigrad->name }}</a>
+                @endforeach
+            </div>
+        </div>
+
     </div>
 </div>

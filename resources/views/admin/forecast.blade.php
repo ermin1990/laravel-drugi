@@ -1,8 +1,8 @@
-@extends('layout')
+@extends('admin.admin-layout')
 
 @section('content')
 
-    <div class="min-h-screen bg-gradient-to-br from-blue-500 to-indigo-600 p-6">
+    <div class="min-h-screen p-3">
 
 
         <div class="text-3xl font-bold text-white mb-6">Forecast<span class="text-gray-900 font-bold italic">Admin</span></div>

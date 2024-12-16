@@ -11,7 +11,7 @@
 </head>
 <body>
 
-
+    @include('partials.status')
 
     @yield('content')
 
