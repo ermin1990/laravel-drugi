@@ -26,11 +26,11 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', AdminCheckMiddleware::class])->prefix("admin")->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name("index");
-    Route::view('add', 'admin.add')->name("add");
-    Route::post('add-city', [WeatherController::class, 'addCity'])->name("add-city");
+    //Route::view('add', 'admin.add')->name("add");
+    //Route::post('add-city', [WeatherController::class, 'addCity'])->name("add-city");
     Route::get('delete/{city_id}', [WeatherController::class, 'deleteCity'])->name("delete");
-    Route::get('edit/{city_id}', [WeatherController::class, 'editCity'])->name("edit");
-    Route::post('update/{city_id}', [WeatherController::class, 'updateCity'])->name("update");
+    Route::get('edit/{id}', [WeatherController::class, 'editCity'])->name("edit");
+    Route::patch('update/{id}', [WeatherController::class, 'updateCity'])->name("update");
 
     Route::get('forecast', [AdminForecastController::class, 'index'])->name("admin.forecast");
 

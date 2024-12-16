@@ -15,4 +15,14 @@ class City extends Model
             ->orderBy('date', 'asc')
             ->limit(5);
     }
+
+    public function oneforecast(){
+        return $this->hasOne(Forecast::class, 'city_id','id')
+            ->orderBy('date', 'asc');
+    }
+
+    public function allforecasts(){
+        return $this->hasMany(Forecast::class, 'city_id', 'id')
+            ->orderBy('date');
+    }
 }

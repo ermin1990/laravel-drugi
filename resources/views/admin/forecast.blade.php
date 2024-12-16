@@ -10,7 +10,6 @@
             <div class="addForm">
                 @include('partials.status')
                 @include('admin.partials.forecast_add')
-                <i class="bi bi-sun"></i>
             </div>
 
             <div class="list">

@@ -10,6 +10,8 @@ class Forecast extends Model
     protected $fillable = ['city_id', 'temperature', 'date','weather_type', 'probability'];
 
     public function city(){
-        $this->hasOne(City::class, 'id', 'city_id');
+        return $this->hasOne(City::class, 'id', 'city_id');
     }
+
+
 }

@@ -10,10 +10,8 @@ class HomeController extends Controller
     public function index()
     {
 
-        $randomWeather = Weather::inRandomOrder();
-        $svigradovi = City::all();
 
-        $weather = $randomWeather->first();
-        return view("home", compact("weather", "svigradovi"));
+        $svigradovi = City::all();
+        return view("home", compact( "svigradovi"));
     }
 }

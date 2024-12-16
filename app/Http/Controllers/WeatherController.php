@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\Forecast;
 use App\Models\Weather;
 use Exception;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\PseudoTypes\LowercaseString;
+use Illuminate\Support\Facades\Redirect;
 
 
 class WeatherController extends Controller
@@ -14,24 +15,14 @@ class WeatherController extends Controller
 
     public function search(Request $request)
     {
-        $search = $request->city;
-        $name = strtolower($request->city);
-        $svigradovi = City::all();
-        $city = City::selectRaw("lower(name) as name, id")
-            ->whereRaw("lower(name) = ?", [$name])
-            ->first();
+        $search = $request->get('city');
 
-        if (!$city) {
+        $cities = City::where("name", "LIKE", "%$search%")->get();
 
-                return view('home', compact('search'));
-
-
-        } else {
-            $weather = Weather::where('city_id', $city->id)->first();
+        if (count($cities) == 0) {
+            return Redirect::route('home')->with(['error'=>'Nismo pronašli grad!']);
         }
-
-        return view('home', compact('weather', 'svigradovi'));
-
+        return view('home', compact('cities'));
     }
 
     public function addCity(Request $request)
@@ -61,36 +52,28 @@ class WeatherController extends Controller
         return redirect()->back()->with('success', 'Grad je uspjesno obrisan');
     }
 
-    public function editCity(Weather $city_id)
+    public function editCity($id)
     {
-        return view('admin.edit', compact('city_id'));
+        $forecast = Forecast::where('id',$id)->first();
+        //dd($forecast);
+        return view('admin.edit', compact('forecast'));
     }
 
-    public function updateCity(Request $request, Weather $city_id)
+    public function updateCity(Request $request,$id)
     {
+        $forecast = Forecast::where('id',$id)->first();
 
         $request->validate([
-            'city_id' => 'required|string|max:255',
-            'temperature' => 'required|numeric|min:0|max:50',
+            'temperature' => 'required|numeric|min:-50|max:50',
         ]);
-
         try {
-            $city_id->update([
-                "city_id" => $request->city_id,
-                "temperature" => $request->temperature,
-            ]);
-            return redirect()->route('index')->with('success', 'Grad je uspjesno azuriran');
+            $forecast->update($request->all());
+            return redirect()->route('index')->with('success', 'Temperatura je uspjesno ažurirana');
         } catch (Exception $e) {
             $error = $e->getMessage();
             return redirect()->back()->with($error);
         }
 
-    }
-
-    private function strlower(mixed $city)
-    {
-
-        return strtolower($city);
     }
 
 

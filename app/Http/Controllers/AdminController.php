@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Weather;
+use App\Models\City;
 
 class AdminController extends Controller
 {
 
     public function index()
     {
-        $allCities = Weather::all();
+        $allCities = City::all();
         return view('admin.index', compact('allCities'));
     }
 }

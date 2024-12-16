@@ -17,33 +17,27 @@
             </div>
         </form>
 
-        @if(isset($weather))
+@include('partials.error')
 
-            <div class="text-center">
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ $weather->city->name }}</h2>
-                <div class="bg-gray-100 rounded-lg p-6">
-                    <div class="text-5xl font-bold text-blue-500 mb-2">
-                        {{ round($weather->temperature) }}°C
+        @if(isset($cities))
+            @foreach($cities as $city)
+            <div class="text-center p-2">
+                <a href="{{route ('forecast', $city->name)}}" class="text-2xl font-bold text-gray-800 mt-2 mb-2">{{ $city->name }} </a>
+                <p class="text-xs font-light">Klikni na ime grada za više prognoze</p>
+                <div class="bg-gray-100 rounded-lg p-6 mt-1">
+                   <div class="text-5xl font-bold text-blue-500 mb-2">
+                       <div class="mb-3">{{\App\Http\ForecastHelper::getIconByWeatherType($city->oneforecast->weather_type)}}</div>
+                        {{($city->oneforecast->temperature)}}°C
                     </div>
                     <p class="text-gray-600">Trenutna temperatura</p>
                 </div>
             </div>
-
-
-
-            <p class=" text-xs text-gray-600">
-                Ispisujemo random vremensku prognozu za Random grad ukoliko niste pretražili neki iz baze.
-            </p>
-        @else
-            <div class="text-center">
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Nema vremenske prognoze za {{$search}}</h2>
-            </div>
+            @endforeach
         @endif
-
         <div class="sviGradovi">
             <h3 class="text-xl font-bold text-gray-800 my-2"> Svi gradovi <span class="text-xs text-gray-600">(Klikni na odabir grada)</span></h3>
             <div class="text-xs font-bold flex flex-wrap gap-2">
-                @foreach($svigradovi as $svigrad)
+                @foreach(\App\Models\City::all() as $svigrad)
                     <a href="{{ route('search', ['city' => $svigrad->name]) }}" class="p-2 bg-gray-100 rounded-lg">{{ $svigrad->name }}</a>
                 @endforeach
             </div>

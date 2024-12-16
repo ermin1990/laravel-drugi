@@ -17,9 +17,10 @@
         <div class="bg-white rounded-lg shadow-xl p-6 mb-6">
 
             @include('partials.menu')
+            @include('partials.status')
         </div>
 
-        @include('partials.status')
+
 
 <div class="p-4">
 @yield('content')
