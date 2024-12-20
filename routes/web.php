@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminForecastController;
 use App\Http\Controllers\ForecastController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserCities;
 use App\Http\Controllers\WeatherController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -13,10 +14,6 @@ Route::get('/', [HomeController::class, 'index'])->name("home");
 Route::get('/search', [WeatherController::class, 'search'])->name("search");
 Route::get('/forecast/{city:name}', [ForecastController::class, 'index'])->name("forecast");
 
-
-/*Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');*/
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,6 +32,9 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->prefix("admin")->group
     Route::get('forecast', [AdminForecastController::class, 'index'])->name("admin.forecast");
 
     Route::post('add-forecast', [AdminForecastController::class, 'addForecast'])->name("add-forecast");
+
+    Route::get('add-fav-city/{city}', [UserCities::class,'addcity'])->name('add-fav-city');
+    Route::get('delete-fav-city/{city}', [UserCities::class,'deletecity'])->name('delete-fav-city');
 
 })->name("admin");
 

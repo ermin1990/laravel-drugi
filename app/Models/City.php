@@ -25,4 +25,7 @@ class City extends Model
         return $this->hasMany(Forecast::class, 'city_id', 'id')
             ->orderBy('date');
     }
+
+
+
 }

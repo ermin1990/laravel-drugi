@@ -22,7 +22,15 @@
         @if(isset($cities))
             @foreach($cities as $city)
             <div class="text-center p-2">
+
                 <a href="{{route ('forecast', $city->name)}}" class="text-2xl font-bold text-gray-800 mt-2 mb-2">{{ $city->name }} </a>
+                @if(Auth::check())
+                @if(in_array($city->id, $favourites))
+                    <a class="justify-center bg-red-400 rounded p-1" href="{{route('delete-fav-city', $city->id)}}"><i class="fas fa-trash"></i></a>
+                @else
+                    <a class="justify-center bg-lime-400 rounded p-1" href="{{route('add-fav-city', $city->id)}}"> <i class="fas fa-heart"></i></a>
+                @endif
+                @endif
                 <p class="text-xs font-light">Klikni na ime grada za više prognoze</p>
                 <div class="bg-gray-100 rounded-lg p-6 mt-1">
                    <div class="text-5xl font-bold text-blue-500 mb-2">

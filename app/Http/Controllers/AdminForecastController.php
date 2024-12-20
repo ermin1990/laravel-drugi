@@ -6,14 +6,20 @@ use App\Models\City;
 use App\Models\Forecast;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminForecastController extends Controller
 {
     public function index()
     {
 
+        if (Auth::check()) {
+            $favourites = Auth::user()->cityFovourites->pluck('city_id')->toArray();
+        }
+
+
         $cities = City::all();
-        return view('admin.forecast', compact('cities'));
+        return view('admin.forecast', compact('cities', 'favourites'));
 
     }
 

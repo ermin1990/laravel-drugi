@@ -3,12 +3,9 @@
 @section('content')
 
     <div class="min-h-screen p-3">
-
-
         <div class="text-3xl font-bold text-white mb-6">Forecast<span class="text-gray-900 font-bold italic">Admin</span></div>
         <div class="max-w-4xl mx-auto">
             <div class="addForm">
-                @include('partials.status')
                 @include('admin.partials.forecast_add')
             </div>
 

@@ -7,6 +7,7 @@ use App\Models\Forecast;
 use App\Models\Weather;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 
@@ -16,13 +17,18 @@ class WeatherController extends Controller
     public function search(Request $request)
     {
         $search = $request->get('city');
+        $user = Auth::check();
+        $favourites = [];
+        if($user) {
+            $favourites =Auth::user()->cityFovourites()->pluck('city_id')->toArray();
+        }
 
         $cities = City::with('forecast')->where("name", "LIKE", "%$search%")->get();
 
         if (count($cities) == 0) {
             return Redirect::route('home')->with(['error'=>'Nismo pronašli grad!']);
         }
-        return view('home', compact('cities'));
+        return view('home', compact('cities', "favourites" ));
     }
 
     public function addCity(Request $request)

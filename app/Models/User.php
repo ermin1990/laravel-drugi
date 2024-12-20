@@ -47,4 +47,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function cityFovourites(){
+        return $this->hasMany(UserCity::class, 'user_id', 'id');
+    }
 }

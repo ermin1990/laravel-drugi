@@ -2,7 +2,18 @@
 @php use Carbon\Carbon; @endphp
 @if(isset($city))
     <div class="text-center text-white mb-2">
-        <h1 class="text-4xl font-extrabold">{{ $city->name }}</h1>
+        <h1 class="justify-center text-4xl font-extrabold flex items-center">{{ $city->name }}
+            @if(in_array($city->id, $favourites))
+                <a class="justify-center text-lg bg-red-400 rounded m-2 p-1 hover:transition-all hover:scale-125" href="{{route('delete-fav-city', $city->id)}}"><i class="fas fa-trash"></i></a>
+            @else
+                <a class="justify-center text-lg bg-lime-400 rounded m-2 p-1 hover:transition-all hover:scale-125" href="{{route('add-fav-city', $city->id)}}"> <i class="fas fa-star"></i></a>
+            @endif
+
+        </h1>
+
+
+
+
         <span class="text-xs">Prikazujemo 5 dana poredani po datumima</span>
 
     </div>
