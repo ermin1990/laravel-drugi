@@ -1,5 +1,7 @@
 Dodana je funkcionalnost za dohvaćanje trenutne vremenske prognoze za grad koji korisnik unese putem terminala. Koristi se WeatherAPI za preuzimanje podataka o temperaturi i vremenskim uslovima.
 
+https://github.com/ermin1990/laravel-drugi/blob/domaci-18/app/Console/Commands/GetRealWeather.php
+
 ### Šta je urađeno:
 Poziv za API:
 
