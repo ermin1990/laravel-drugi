@@ -11,7 +11,8 @@ class HomeController extends Controller
     {
 
 
-        $svigradovi = City::all();
+        $svigradovi = City::with('oneforecast')->get();
+        dd($svigradovi);
         return view("home", compact( "svigradovi"));
     }
 }

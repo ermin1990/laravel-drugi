@@ -9,7 +9,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $allCities = City::all();
+        $allCities = City::with('forecast')->get();
         return view('admin.index', compact('allCities'));
     }
 }

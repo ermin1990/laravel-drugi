@@ -42,7 +42,7 @@ class AdminForecastController extends Controller
             return redirect()->route('admin.forecast')->with('success', 'Forecast je uspješno dodan');
         } catch (Exception $e) {
             $error = $e->getMessage();
-            return redirect()->back()->with($error);
+            return redirect()->back()->with('error', $error);
         }
 
 

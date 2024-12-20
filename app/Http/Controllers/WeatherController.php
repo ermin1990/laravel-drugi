@@ -17,7 +17,7 @@ class WeatherController extends Controller
     {
         $search = $request->get('city');
 
-        $cities = City::where("name", "LIKE", "%$search%")->get();
+        $cities = City::with('forecast')->where("name", "LIKE", "%$search%")->get();
 
         if (count($cities) == 0) {
             return Redirect::route('home')->with(['error'=>'Nismo pronašli grad!']);
