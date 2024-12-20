@@ -13,8 +13,6 @@ class UserCity extends Model
         'city_id', 'user_id'
     ];
 
-
-
     public function city()
     {
         return $this->belongsTo(City::class);
